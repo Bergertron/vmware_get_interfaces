@@ -18,7 +18,7 @@
 # limitations under the License.
 
 from __future__ import print_function
-from pyVim.connect import SmartConnect, Disconnect
+from pyVim.connect import SmartConnectNoSSL, Disconnect
 from pyVmomi import vim
 import atexit
 import sys
@@ -107,9 +107,9 @@ def GetVMNics(vm):
 
 def GetArgs():
     if len(sys.argv) != 4:
-        host = raw_input("vCenter IP: ")
-        user = raw_input("Username: ")
-        password = raw_input("Password: ")
+        host = input("vCenter IP: ")
+        user = input("Username: ")
+        password = input("Password: ")
     else:
         host, user, password = sys.argv[1:]
     return host, user, password
@@ -118,7 +118,7 @@ def GetArgs():
 def main():
     global content, hosts, hostPgDict
     host, user, password = GetArgs()
-    serviceInstance = SmartConnect(host=host,
+    serviceInstance = SmartConnectNoSSL(host=host,
                                    user=user,
                                    pwd=password,
                                    port=443)
